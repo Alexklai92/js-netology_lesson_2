@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Задача 3. Аудиоплеер | Домашнее задание к лекции 1.2</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="mediaplayer">
+  	<audio src="https://d34x6xks9kc6p2.cloudfront.net/540997b0-a35f-4b69-86d6-b1c925c4a264/540997b0-a35f-4b69-86d6-b1c925c4a264.mp3"></audio>
+  	<div class="discarea">
+  		<div class="disc">
+  		</div>
+  		<div class="stylus">
+  			<div class="pivot"></div>
+  			<div class="arm"></div>
+  			<div class="head"></div>
+  		</div>
+  	</div>
+  	<div class="controls">
+  		<span class="title" title="LA Chill Tour"></span>
+  		<div class="buttons">
+  			<button class="back">
+  				<i class="fa fa-backward"></i>
+  			</button>
+  			<button class="playstate">
+  				<i class="fa fa-play"></i>
+  				<i class="fa fa-pause"></i>
+  			</button>
+  			<button class="stop">
+  				<i class="fa fa-stop"></i>
+  			</button>
+  			<button class="next">
+  				<i class="fa fa-forward"></i>
+  			</button>
+  		</div>
+  	</div>
+  </div>
+  <script>
+      const playList = {0:{name:'LA Chill Tour', url:'mp3/LA Chill Tour.mp3'}, 
+                        1:{name:'LA Fusion Jam', url:'mp3/LA Fusion Jam.mp3'}, 
+                        2:{name:'This is it band', url:'mp3/This is it band.mp3'}};
+      
+      let player = document.getElementsByClassName('mediaplayer')[0];
+      let audio = document.getElementsByTagName('audio')[0];
+      let soundName = document.getElementsByTagName('span')[0];
+      var playCount = 0;
+      audio.src = playList[playCount].url;
+      
+      //buttons
+      let playState = document.getElementsByClassName('playstate')[0];
+      let stopButton = document.getElementsByClassName('stop')[0];
+      let backButton = document.getElementsByClassName('back')[0];
+      let nextButton = document.getElementsByClassName('next')[0];
+      // --- relise
+      playState.onclick = () => {
+          player.classList.toggle('play');
+          if (player.classList.contains('play')) {
+              audio.play();
+          } else {
+              audio.pause();
+          }
+      }
+      
+      stopButton.onclick = () => {
+          player.classList.remove('play');
+          audio.pause();
+          audio.currentTime = 0;
+      }
+      
+      backButton.onclick = () => {
+          playCount -= 1;
+          if (playCount < 0)
+              playCount = 2;
+          audio.src = playList[playCount].url;
+          audio.play();
+          soundName.title = playList[playCount].name;
+      }
+      
+      nextButton.onclick = () => {
+          playCount += 1;
+          if (playCount > 2)
+              playCount = 0;
+          audio.src = playList[playCount].url;
+          audio.play();
+          soundName.title = playList[playCount].name;
+      }
+    </script>
+</body>
+</html>
