@@ -39,21 +39,22 @@
   	</div>
   </div>
   <script>
-      const playList = {0:{name:'LA Chill Tour', url:'mp3/LA Chill Tour.mp3'}, 
-                        1:{name:'LA Fusion Jam', url:'mp3/LA Fusion Jam.mp3'}, 
+      const playList = {0:{name:'LA Chill Tour', url:'mp3/LA Chill Tour.mp3'},
+                        1:{name:'LA Fusion Jam', url:'mp3/LA Fusion Jam.mp3'},
                         2:{name:'This is it band', url:'mp3/This is it band.mp3'}};
-      
+
       let player = document.getElementsByClassName('mediaplayer')[0];
       let audio = document.getElementsByTagName('audio')[0];
       let soundName = document.getElementsByTagName('span')[0];
       var playCount = 0;
       audio.src = playList[playCount].url;
-      
+
       //buttons
       let playState = document.getElementsByClassName('playstate')[0];
       let stopButton = document.getElementsByClassName('stop')[0];
       let backButton = document.getElementsByClassName('back')[0];
       let nextButton = document.getElementsByClassName('next')[0];
+
       // --- relise
       playState.onclick = () => {
           player.classList.toggle('play');
@@ -63,28 +64,30 @@
               audio.pause();
           }
       }
-      
+
       stopButton.onclick = () => {
           player.classList.remove('play');
           audio.pause();
           audio.currentTime = 0;
       }
-      
+
       backButton.onclick = () => {
           playCount -= 1;
           if (playCount < 0)
               playCount = 2;
           audio.src = playList[playCount].url;
-          audio.play();
+          if (player.classList.contains('play'))
+              audio.play();
           soundName.title = playList[playCount].name;
       }
-      
+
       nextButton.onclick = () => {
           playCount += 1;
           if (playCount > 2)
               playCount = 0;
           audio.src = playList[playCount].url;
-          audio.play();
+          if (player.classList.contains('play'))
+              audio.play();
           soundName.title = playList[playCount].name;
       }
     </script>

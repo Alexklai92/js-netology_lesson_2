@@ -38,7 +38,9 @@
       let drummButtons = document.getElementsByClassName('drum-kit__drum');
       for (let btn of drummButtons) {
           btn.onclick = function () {
-              this.getElementsByTagName('audio')[0].play();
+            const playSound = this.getElementsByTagName('audio')[0];
+            playSound.currentTime = 0;
+            playSound.play();
           }
       }
   </script>
